@@ -1,0 +1,327 @@
+# include <iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    struct Node* link;
+};
+
+Node* top=NULL;
+Node* top2 = NULL;
+Node* top3 = NULL; 
+
+
+
+
+void push(int data);
+void push2(int data);
+void push3(int data);
+int isEmpty();
+int isEmpty2(); 
+int isEmpty3(); 
+int lennfunction(); 
+int peek();
+int peek2();
+int peek3();
+void pop(); 
+void pop2();
+void pop3();
+
+
+void display(); 
+void display2();
+void display3();
+
+
+
+int main() {
+
+        int num1;
+        int num2;
+        int num3; 
+    int sum1=0, sum2=0, sum3=0; 
+    int lenn_of_stack,lenn_of_stack2,lenn_of_stack3;
+    int hight; 
+    cout << "enter the number of stack1: "; 
+    cin >> lenn_of_stack; 
+    cout << endl; 
+    cout << "enter the number of stack2: ";
+    cin >> lenn_of_stack2; 
+    cout << endl; 
+    cout << "enter the number of stack1: ";
+    cin >> lenn_of_stack3; 
+    cout << endl; 
+ 
+
+
+    for (int b = 0; b < lenn_of_stack; b++) {
+        cin >> num1; 
+        cout << " ";
+        sum1 += num1;
+        push(sum1); 
+        cout << endl; 
+    }
+    for (int c = 0; c < lenn_of_stack2; c++) {
+        cin >> num2;
+        cout << " ";
+        sum2 += num2;
+        push2(sum2);
+        cout << endl; 
+    }
+    for (int d = 0; d < lenn_of_stack3; d++) {
+        cin >> num3;
+        cout << " ";
+        sum3 += num3;
+        push3(sum3);
+        cout << endl; 
+    }
+
+    while (true) {
+        if (peek() > peek2() && peek() > peek3()) {
+            pop();
+        }
+        else if (peek2() > peek() && peek2() > peek3()) {
+            pop2();
+        }
+        else if (peek3() > peek() && peek3() > peek2()) {
+            pop3();
+        }
+        else {
+            break; 
+        }
+
+    }
+
+    cout << peek3(); 
+
+    return 0 ;
+}
+
+
+
+
+
+
+
+void push(int data)
+{
+    Node* temp;
+    temp = new Node;
+    if (temp==NULL)
+    {
+        cout << "Heap Overflow";
+        return; 
+    }
+
+    temp->data = data;
+    temp->link = top;
+    top = temp;
+}
+void push2(int data)
+{
+    Node* temp;
+    temp = new Node;
+    if (temp == NULL)
+    {
+        cout << "Heap Overflow";
+        return;
+    }
+
+    temp->data = data;
+    temp->link = top2;
+    top2 = temp;
+}
+void push3(int data)
+{
+    Node* temp;
+    temp = new Node;
+    if (temp == NULL)
+    {
+        cout << "Heap Overflow";
+        return;
+    }
+
+    temp->data = data;
+    temp->link = top3;
+    top3 = temp;
+}
+
+
+
+
+int isEmpty()
+{
+    return top == NULL;
+}
+int isEmpty2()
+{
+    return top2 == NULL;
+}
+int isEmpty3()
+{
+    return top3 == NULL;
+}
+
+int peek()
+{
+    if (!isEmpty())
+        return top->data;
+    else
+        exit(0);
+}
+int peek2()
+{
+    if (!isEmpty2())
+        return top2->data;
+    else
+        exit(0);
+}
+
+int peek3()
+{
+    if (!isEmpty3())
+        return top3->data;
+    else
+        exit(0);
+}
+
+
+
+
+
+
+
+
+
+
+void pop()
+{
+    Node* temp;
+
+    if (top == NULL)
+    {
+        cout << "Stack Underflow" << endl;
+        exit(1);
+    }
+    else
+    {
+        temp = top;
+        top = top->link; 
+        temp->link = NULL;
+        free(temp);
+    }
+}
+void pop2()
+{
+    Node* temp;
+
+    if (top2 == NULL)
+    {
+        cout << "Stack Underflow" << endl;
+        exit(0);
+    }
+    else
+    {
+        temp = top2;
+        top2 = top2->link;
+        temp->link = NULL;
+        free(temp);
+    }
+}
+void pop3()
+{
+    Node* temp;
+
+    if (top3 == NULL)
+    {
+        cout << "Stack Underflow" << endl;
+        exit(0);
+    }
+    else
+    {
+        temp = top3;
+        top3 = top3->link;
+        temp->link = NULL;
+        free(temp);
+    }
+}
+
+
+
+
+
+
+
+
+
+void display()
+{
+    struct Node* temp;
+
+    if (top == NULL)
+    {
+        cout << "Stack Underflow";
+    }
+
+    else
+    {
+        temp = top;
+        while (temp)
+        {
+            cout << temp->data << " "; 
+            temp = temp->link;
+        }
+    }
+}
+void display2()
+{
+    struct Node* temp;
+
+    if (top2 == NULL)
+    {
+        cout << "Stack Underflow";
+    }
+
+    else
+    {
+        temp = top2;
+        while (temp)
+        {
+            cout << temp->data << " "; 
+            temp = temp->link;
+        }
+    }
+}
+void display3()
+{
+    struct Node* temp;
+
+    if (top3 == NULL)
+    {
+        cout << "Stack Underflow";
+    }
+
+    else
+    {
+        temp = top3;
+        while (temp)
+        {
+            cout << temp->data << " "; 
+            temp = temp->link;
+        }
+    }
+}
+int  lennfunction() {
+
+    Node* pointer; 
+    int counter=0; 
+    pointer = top; 
+
+    while (pointer) {
+        counter++; 
+        pointer = pointer->link; 
+    }
+    return counter; 
+
+}
