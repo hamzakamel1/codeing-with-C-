@@ -1,0 +1,156 @@
+/*
+DATA STRUCRT 
+NAME: hamza kamel ahmed 
+ID: 20190659
+DR.Dina Salem 
+*/
+
+#include <iostream>
+#include <iomanip> 
+using namespace std;
+struct node {
+    int data;
+    node* next;
+};
+
+int counter = 0;
+float sum = 0;
+void insertnewnode(node** head, int value);
+void displynodes(node* haed);
+void deletnode(node** haed, float value);
+void userinput(node*& head);
+int len(node** head);
+
+int main() {
+    float average;
+    node* head = NULL;
+    userinput(head);
+    average = ((float)(sum / counter));
+    cout << endl << endl;
+    cout << setw(50) << "THE AVERAGE OF THE WHOLE LIST:" << average << endl;
+    cout << endl << endl << endl;
+    system("PAUSE");
+    system("CLS");
+    cout << endl << endl;
+    cout << setw(50) << "the length of the list Before deleting: " << len(&head) << endl;
+    cout << setw(25) << "LIST BEFORE DELETING: "; displynodes(head);
+    cout << endl << endl << endl;
+    system("PAUSE");
+    system("CLS");
+    cout << endl << endl;
+    for (int i = 0; i < counter; i++) {
+        deletnode(&head, average);
+    }
+    cout << setw(50) << "the length of the list After deleting: " << len(&head) << endl;
+    cout << setw(25) << "LIST AFTER DELETING: "; displynodes(head);
+    cout << endl << endl << endl;
+    system("PAUSE");
+    system("CLS");
+    return 0;
+}
+
+void insertnewnode(node** head, int value) {
+    node* new_node = new node; // here we create a pointer and this pointer point to a new node
+    new_node->data = value; // here we set the value of this new node with the value that the user will put it 
+    new_node->next = NULL; // in this new node we make the pointer (next) in the new node point to NULL
+
+    if (*head == NULL) { 
+        *head = new_node;
+        new_node->next = NULL;
+    }
+    /* if the head pointer point to NULL means there is no list so ir will make the head pointer equal to the new_node pointer
+    then will make the pointer(new_node) that point to pointer (next) point to NULL that mean there is no node after the node that head point to it 
+    */
+
+    else {
+        node* current = *head;
+        while (current->next != NULL) {
+            current = current->next;
+        } 
+        current->next = new_node;
+        new_node->next = NULL;
+    }
+
+    /* here if there is a head and a starting noed then we will create a pointer called (current) and this pointer equal to head pouinter, after that will put a 
+    while loop that if the pointer(current) that point to pointer(next) not equal to NULL means that there is a node already so we will move this pointer to another node 
+    then out of the loop like condition if the node that pointer (current) has node node after it then cuurnt pointer will equal to the new_node that points to new node then 
+    will make the pointer (next) points to Null value
+*/
+}
+
+void displynodes(node* head) {
+    node* tempointer = head;
+    cout << "[";
+    while (tempointer) {
+        cout << tempointer->data << ",";
+        tempointer = tempointer->next;
+    }
+    cout << "]";
+    cout << endl;
+
+/* in this function we will dispaly each elemnt in the linked list by making pointer and make it equal to the head pointer then by using while loop if this pointer not point to NULL
+then print out the value that pointer point to it in the particular node then will make it point to the next node
+*/
+}
+
+void deletnode(node** head, float value) {
+    node* cur_pointer = *head;
+    node* todelnode;
+    if ((*head)->data < value) {
+        *head = (*head)->next;
+        delete cur_pointer;
+        return;
+    }
+    while (cur_pointer->next != NULL) {
+        if ((cur_pointer->next->data) < value) {
+            todelnode = cur_pointer->next;
+            cur_pointer->next = todelnode->next;
+            delete todelnode;
+            todelnode = cur_pointer->next;
+            return;
+        }
+        cur_pointer = cur_pointer->next;
+    }
+/*
+in this function we will delete the node that its value less than the average, so we will make pointer and make it equal to the head pointer also will make another  pointer, then by if condition if the 
+value of the pointer head is less that the average then will move the head to the next node and delete the pointer that point to the node that we want to delete, if the head pointer its value greater than the average 
+we will make a while loop to find the node that we want to delete, so in the while loop if the pointer (cur_pointer) not point to null means not point to nothing then will see if the pointer(cur_pointer)
+that points to pointer next that point to the value of this node if it is less than the average, then will make pointer called(todelnode) equal to the pointer (cur_pointer), then will make the pointer cur_pointer
+points to the node that todelnode point to it , then will delete this node todelnode to delete it , it is not to delete it while we lost it but by pointer todelnode will delte it from the memory to make it 
+a clean list and save the meomoy
+
+*/
+}
+
+int len(node** head)
+{
+    int counter = 0;
+    node* pointer = *head;
+    while (pointer != NULL) {
+        counter++;
+        pointer = pointer->next;
+    }
+    return counter;
+}
+
+
+void userinput(node*& head) 
+// this function take from the user the numbers and put in the linked list and ceak if the numbers is positive or negative or zero by calling the insertnode inside this fucntion
+{
+    int number;
+    while (true) {
+        cout << "Enter a number:";
+        cin >> number;
+        if (number > 0 && number != 0) {
+            insertnewnode(&head, number);
+            counter++;
+            sum += number;
+            system("CLS");
+        }
+        else {
+            break;
+        }
+
+    }
+    system("CLS");
+}
