@@ -1,0 +1,400 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+struct client {
+    int client_number_of_tickets;
+    int client_phone;
+    string  client_film_time;
+    char client_name[50];
+
+};
+
+
+// Function decleration 
+void design();
+int Menu_number1_switch1();
+int Menu_number2_switch2();
+void film1_timing(int i);
+void film2_timing(int i);
+void displayData1(int i, int price);
+
+int main()
+{
+
+
+    int for_swich_buy_ticket_or_not;
+    int for_swich_for_chooseing_film;
+    int sum_of_tickets_hall_1 = 0;
+    int sum_of_tickets_hall_2 = 0;
+    int price_of_movie_1 = 100;
+    int price_of_movie_2 = 120;
+    int arry_movie1[5];
+    int arry_movie2[3];
+    int choose_for_switch_1;
+    int choose_for_switch_2;
+    client client_data_movie1[3], client_data_movie2[3];
+
+    design();
+    choose_for_switch_1 = Menu_number1_switch1(); // for the menu 1 function 
+    cout << setw(140) << "THANKS FOR CHOOSING IMAX CINEMA \n\n";
+    switch (choose_for_switch_1) {
+
+    case 1:
+
+        for (int counter = 0; counter <= 3; counter++) {
+
+            cout << setw(15) << " ( ticket ID_" << counter + 1 << " )" << endl << endl;
+
+            choose_for_switch_2 = Menu_number2_switch2(); // for the menu 2 function 
+
+            if (choose_for_switch_2 == 1) {
+
+                cout << setw(115) << "HALL 1" << endl;
+                cout << setw(120) << "avalible tickets " << endl;
+                cout << setw(113) << abs((sum_of_tickets_hall_1)-150);
+                cout << "\n";
+            }
+            else if (choose_for_switch_2 == 2) {
+
+                cout << setw(115) << "HALL 2" << endl;
+                cout << setw(120) << "avalible tickets " << endl;
+                cout << setw(113) << abs((sum_of_tickets_hall_2)-150);
+                cout << "\n";
+
+            }
+
+            switch (choose_for_switch_2) {
+                // case number 1 for movie 1 
+            case 1:
+                system("pause");
+                system("CLS");
+                cout << "Enter your name: ";
+                cin >> client_data_movie1[counter].client_name;
+                cout << "Enter the number of tickets you want to purchase: ";
+                cin >> client_data_movie1[counter].client_number_of_tickets;
+                cout << "Enter your contact number: ";
+                cin >> client_data_movie1[counter].client_phone;
+                cout << endl;
+                film1_timing(counter);
+                if ((sum_of_tickets_hall_1 + client_data_movie1[counter].client_number_of_tickets) > 150) {
+                    cout << "The Number of Avalible Tickets: " << abs(sum_of_tickets_hall_1 - client_data_movie1[counter].client_number_of_tickets - 150) << endl;
+                    sum_of_tickets_hall_1 -= client_data_movie1[counter].client_number_of_tickets;
+                    counter--;
+                }
+                else {
+                    cout << "\n\n\n Displaying Information " << endl;
+                    cout << "Name:" << client_data_movie1[counter].client_name << endl;
+                    cout << "Time:" << client_data_movie1[counter].client_film_time << endl;
+                    cout << "Phone:" << client_data_movie1[counter].client_phone << endl;
+                    cout << "The total price =  " << (client_data_movie1[counter].client_number_of_tickets) * 100 << endl;
+                }
+                sum_of_tickets_hall_1 += client_data_movie1[counter].client_number_of_tickets;
+                system("pause");
+                system("CLS");
+                break;
+
+                // case number 2 for movie 2  
+            case 2:
+                system("pause");
+                system("CLS");
+                cout << "Enter your name: ";
+                cin >> client_data_movie2[counter].client_name;
+                cout << "Enter the number of tickets you want to purchase: ";
+                cin >> client_data_movie2[counter].client_number_of_tickets;
+                cout << "Enter your contact number: ";
+                cin >> client_data_movie2[counter].client_phone;
+                cout << endl;
+                film2_timing(counter);
+
+                if ((sum_of_tickets_hall_2 + client_data_movie2[counter].client_number_of_tickets) > 150) {
+                    cout << "The Number of Avalible Tickets: " << abs(sum_of_tickets_hall_2 - client_data_movie2[counter].client_number_of_tickets - 150) << endl;
+                    sum_of_tickets_hall_2 -= client_data_movie2[counter].client_number_of_tickets;
+                    counter--;
+                }
+                else {
+                    cout << "\nDisplaying Information." << endl;
+                    cout << "Name:" << client_data_movie2[counter].client_name << endl;
+                    cout << "Time:" << client_data_movie2[counter].client_film_time << endl;
+                    cout << "Phone:" << client_data_movie2[counter].client_phone << endl;
+                    cout << "The total price =  " << (client_data_movie2[counter].client_number_of_tickets) * 120 << endl;
+                }
+                sum_of_tickets_hall_2 += client_data_movie2[counter].client_number_of_tickets;
+                break;
+
+
+            case 3:
+                system("pause");
+                system("CLS");
+                cout << endl << endl;
+                cout << setw(92) << "We are waiting for your next visit :)" << endl;
+                counter--;
+                system("pause");
+                system("CLS");
+                break;
+
+
+            default:
+                system("pause");
+                system("CLS");
+                cout << setw(115) << "YOU ENTERED A WRONG NUMBER PLEASE TRY AGAIN TO CHOOSE THE MOVIE \a\n";
+                cout << setw(115) << "________ \n";
+                counter--;
+                system("CLS");
+                break;
+            }
+
+
+            if ((sum_of_tickets_hall_1 + sum_of_tickets_hall_2) >= 300) {
+
+                cout << " tickets are completed " << endl;
+                system("pause");
+                system("CLS");
+                break;
+
+            }
+
+        }
+
+        if (sum_of_tickets_hall_1 > 150) {
+            cout << "The total tickets for Hall_1: 150 ";
+        }
+        else {
+            cout << "The total tickets for Hall_1: " << sum_of_tickets_hall_1 << endl;
+            cout << "the number of avalible tickets: " << abs(sum_of_tickets_hall_1 - 150) << endl;
+        }
+
+
+        if (sum_of_tickets_hall_2 > 150) {
+            cout << "The total tickets for Hall_2: 150 ";
+        }
+        else {
+            cout << "The total tickets for Hall_2: " << sum_of_tickets_hall_2 << endl;
+            cout << "the number of avalible tickets: " << abs(sum_of_tickets_hall_2 - 150) << endl;
+        }
+
+        break;
+
+    case 2:
+        cout << setw(90) << "Thank you for visiting us :) ";
+        break;
+
+    case 3:
+        cout << "Good bye\n";
+        break;
+
+    default:
+        cout << " You Entered a wrong number please Try Again";
+        break;
+
+    }
+
+    return 0;
+}
+
+// The first function for code desgin 
+void design() {
+
+    cout << "\n\n";
+    cout << setw(85) << "Welcome to IMAX Cinema" << endl;
+    cout << "--------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
+    cout << setw(83) << "Movies Showing Now" << endl << endl;
+    cout << setw(63) << " Hall 1";
+    cout << setw(27) << " Hall 2" << endl;
+    cout << setw(64) << "Movie_1";
+    cout << setw(27) << "Movie_2" << endl;
+    cout << setw(60) << 100 << "LE";
+    cout << setw(25) << 120 << "LE" << endl << endl;
+
+    for (int i = 1; i <= 15; i++) {
+        cout << setw(20);
+
+        for (int l = 0; l < 101; l++) {
+
+            cout << "'";
+
+            if (i == 1 && l == 50) {
+                cout << "              ";
+            }
+
+            else if (i == 2 && l == 50) {
+                cout << "              ";
+            }
+
+
+            else if (i == 3 && l == 50) {
+                cout << "              ";
+            }
+
+            else if (i == 4 && l == 50) {
+                cout << "              ";
+            }
+
+            else if (i == 5 && l == 50) {
+                cout << "              ";
+            }
+
+            else if (i == 6 && l == 50) {
+                cout << "              ";
+            }
+
+            else if (i == 8 && l == 50) {
+                cout << "              ";
+            }
+
+            else if (i == 9 && l == 50) {
+                cout << "              ";
+            }
+
+            else if (i == 10 && l == 50) {
+                cout << "              ";
+            }
+
+            else if (i == 11 && l == 50) {
+                cout << "              ";
+            }
+
+            else if (i == 12 && l == 50) {
+                cout << "              ";
+            }
+
+            else if (i == 13 && l == 50) {
+                cout << "              ";
+            }
+
+            else if (i == 14 && l == 50) {
+                cout << "              ";
+            }
+
+            else if (i == 15 && l == 50) {
+                cout << "              ";
+            }
+
+            if (i == 7 && l == 20) {
+                cout << "MOVIE 1";
+            }
+
+            if (i == 7 && l == 82) {
+                cout << "MOVIE 2";
+            }
+        }
+
+        cout << endl;
+    }
+    cout << "\n\n";
+
+    cout << setw(75) << "NOTE: EACH HALL HOLDS 150 SEAT  " << " NOT ALLOWED FOR AGE UNDER 5 YEARS " << endl;
+    system("pause");
+    system("CLS");
+
+}
+// the third function for show menu 1 
+int Menu_number1_switch1() {
+    int Selected_element1;
+    cout << endl << endl;
+    cout << "If you want to buy a ticket please press 1 \n";
+    cout << "If you are not interested please press 2 \n";
+    cout << "If you want to exit the program press 3 \n";
+    cout << "Please press here: "; cin >> Selected_element1;
+    cout << endl << endl;
+    system("CLs");
+    return  Selected_element1;
+}
+// the forth function for show menu 2 
+int Menu_number2_switch2() {
+    int Selected_element2;
+    cout << endl << endl;
+    cout << "Please Choose The Movie \n";
+    cout << "press 1 to book a ticket for movie1 \n";
+    cout << "press 2 to book a ticket for movie2 \n";
+    cout << "press 3 to cancel the reservation\n";
+    cout << "Please press here: "; cin >> Selected_element2;
+    cout << endl << endl;
+    return  Selected_element2;
+}
+void film1_timing(int i) {
+
+    int b;
+    cout << " Show timings " << endl;
+    cout << "1. 10:00 AM\n";
+    cout << "2. 01:30 PM\n";
+    cout << "3. 04:00 PM\n";
+    cout << "4. 06:45 PM\n";
+    cout << "5. 10:00 PM\n";
+    cout << "6. 12:30 PM\n";
+    cout << "Please select the timing: ";
+    cin >> b;
+
+    client client_data_movie1[3]; //calling the struct  
+    switch (b)
+    {
+    case 1:
+        client_data_movie1[i].client_film_time = '10';
+        cout << endl;
+        break;
+    case 2:
+        client_data_movie1[i].client_film_time = '01';
+        cout << endl;
+        break;
+    case 3:
+        client_data_movie1[i].client_film_time = '04';
+        cout << endl;
+        break;
+    case 4:
+        client_data_movie1[i].client_film_time = '06';
+        cout << endl;
+        break;
+    case 5:
+        client_data_movie1[i].client_film_time = '10';
+        cout << endl;
+        break;
+    case 6:
+        client_data_movie1[i].client_film_time = '12';
+        cout << endl;
+        break;
+    }
+}
+void film2_timing(int i) {
+
+    int b;
+    cout << " Show timings " << endl;
+    cout << "1. 10:00 AM\n";
+    cout << "2. 01:30 PM\n";
+    cout << "3. 04:00 PM\n";
+    cout << "4. 06:45 PM\n";
+    cout << "5. 10:00 PM\n";
+    cout << "6. 12:30 PM\n";
+    cout << "Please select the timing: ";
+    cin >> b;
+
+    client client_data_movie2[3]; //calling the struct  
+    switch (b)
+    {
+    case 1:
+        client_data_movie2[i].client_film_time = '10';
+        cout << endl;
+        break;
+    case 2:
+        client_data_movie2[i].client_film_time = '01';
+        cout << endl;
+        break;
+    case 3:
+        client_data_movie2[i].client_film_time = '04';
+        cout << endl;
+        break;
+    case 4:
+        client_data_movie2[i].client_film_time = '06';
+        cout << endl;
+        break;
+    case 5:
+        client_data_movie2[i].client_film_time = '10';
+        cout << endl;
+        break;
+    case 6:
+        client_data_movie2[i].client_film_time = '12';
+        cout << endl;
+        break;
+    }
+}
